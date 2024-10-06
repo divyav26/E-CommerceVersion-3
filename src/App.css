@@ -3,3 +3,22 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+
+/* 
+                      <Button
+                        className="flex justify-center items-center gap-2"
+                        type="submit"
+                        size="sm"
+                      >
+                        {loadingStatus == "saving" ? (
+                          <AiOutlineLoading3Quarters className="animate-spin text-base " />
+                        ) : loadingStatus == "done" ? (
+                          <FaCheck className="text-green-500" />
+                        ) : loadingStatus == "failed" ? (
+                          <FaTimes className="text-red-500" />
+                        ) : (
+                          <IoSaveOutline className="tex-sm font-bold" />
+                        )}
+                        Submit
+                      </Button> */
