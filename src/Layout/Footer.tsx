@@ -9,12 +9,12 @@ const Footer = () => {
   return (
     <div className="mt-8 bg-gray-900 pt-9">
   <div className="mx-auto w-full max-w-[1166px] px-4 xl:px-0">
-    <div className="grid grid-cols-5 gap-6 md:px-10">
+    <div className="grid md:grid-cols-5 gap-6 md:px-10">
 
       <div className="">
         <p className="text-xsfont-medium text-white">
         <h1 className="text-white font-extrabold">
-          <span className="text-rose-600">Fashion</span>Hub
+          <span className="text-[#9333EA]">Fashion</span>Hub
         </h1>
         </p>
         <p className="mt-2 text-xs font-normal text-white/[80%]">Buildings Alyssa,
@@ -126,7 +126,7 @@ const Footer = () => {
 
     <hr className="mt-[30px] text-white" />
 
-    <div className="flex items-center justify-between pb-8 pt-[9px] md:py-8">
+    <div className="md:flex items-center justify-between pb-8 pt-[9px] md:py-8">
       <p className="text-[10px] font-normal text-white md:text-[12px]">
         © Copyright
           2024
