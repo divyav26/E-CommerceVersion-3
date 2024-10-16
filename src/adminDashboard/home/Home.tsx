@@ -14,7 +14,7 @@ const Home = () => {
      <Navbar />
 
       {/* Main Content Section */}
-        <main className="p-4 h-[90vh] overflow-y-auto">
+        <main className="p-4 h-[90vh] overflow-y-auto bg-gray-50 shadow-sm">
           <Outlet />
         </main>
       

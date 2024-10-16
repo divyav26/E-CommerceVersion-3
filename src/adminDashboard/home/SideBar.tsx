@@ -12,8 +12,11 @@ const SideBar = () => {
       <div className="flex-grow flex flex-col justify-between text-gray-500 bg-white text-sm">
         <nav className="flex flex-col mx-4 mt-2 space-y-4">
           <div className="text-lg flex items-center gap-1">
-            <img src="https://www.loudmouth-media.com/media/1652/e-commerce-large-01.png" alt="FashionNest" className="w-5 h-6 rounded-full object-cover" />
-           <p className="text-blue-500 font-bold">FashionNest</p>
+          <h1 className="text-black font-extrabold cursor-pointer flex items-center gap-2">
+          <Link to="/home">
+            <span className="text-rose-600">Fashion</span>Hub
+          </Link>
+        </h1>
           </div>
           <Link to="dashboard" className="flex  items-center gap-2"><RxDashboard />Dashboard</Link>
           <Link to="addproducts" className="flex  items-center gap-2"><IoIosAddCircleOutline />Add Product</Link>

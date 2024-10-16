@@ -1,37 +1,96 @@
+import { db } from "@/firebase/FirebaseConfig";
 import Layout from "@/Layout/Layout"
+import { setProducts } from "@/redux/slice/productSlice";
+import {doc, getDoc } from "firebase/firestore";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  images: string[];
+  description: string;
+  quantity?: number;
+  category?: string;
+  brand?: string;
+  discount?: number;
+  finalprice?: number;
+  stock?: number;
+}
 
 const ProductDetails = () => {
+  const { id } = useParams();
+  const products = useSelector((state: any) => state.product.products);
+  console.log("Products:", products);
+  const dispatch = useDispatch();
+
+  const fetchProduct = async () => {
+    if (!id) {
+      console.error("Product ID is undefined");
+      return; 
+    }
+    
+    try {
+      const docRef = doc(db, "products", id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const productData = docSnap.data() as Product;
+        console.log("Product data:", productData);
+        dispatch(setProducts([productData]));
+        
+        
+      } else {
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.error("Error fetching product: ", error);
+    }
+  };
+
+  useEffect(() => {
+    console.log("Fetching product with ID:", id);
+    fetchProduct();
+  }, [id]);
+
+  if (!products) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Layout>
-      <div className="bg-gray-100">
-    <div className="container mx-auto px-4 py-8">
-    <div className="flex flex-wrap -mx-4">
+      <div className="">
+    
+    <div className="container px-4 py-8">
+    <div className="flex justify-between gap-4">
 
-      <div className="w-full md:w-1/2 px-4 mb-8">
-        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080" alt="Product"
-                    className="w-full h-auto rounded-lg shadow-md mb-4" id="mainImage"/>
-        <div className="flex gap-4 py-4 justify-center overflow-x-auto">
-          <img src="https://images.unsplash.com/photo-1505751171710-1f6d0ace5a85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxMnx8aGVhZHBob25lfGVufDB8MHx8fDE3MjEzMDM2OTB8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Thumbnail 1"
-                        className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                        />
-          <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw0fHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080" alt="Thumbnail 2"
-                        className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                        />
-          <img src="https://images.unsplash.com/photo-1496957961599-e35b69ef5d7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080" alt="Thumbnail 3"
-                        className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                        />
-          <img src="https://images.unsplash.com/photo-1528148343865-51218c4a13e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwzfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080" alt="Thumbnail 4"
-                        className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                        />
+     {
+      products?.length > 0 && products?.map((product: any) => (
+     <>
+     
+        <div className="flex flex-col gap-4">
+         {product.images.map((image:any, index:any) => (
+                  <img 
+                    key={index} 
+                    src={image} 
+                    alt={`Thumbnail ${index + 1}`} 
+                    className="size-14 sm:size-20 border border-gray-200 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
+                  />
+                ))}
         </div>
-      </div>
+        <div>
+          <img src={product?.images[0]} alt="Product"
+             className="w-[400px] h-[350px] mb-4" id="mainImage"/>
+        </div>
 
       <div className="w-full md:w-1/2 px-4">
-        <h2 className="text-3xl font-bold mb-2">Premium Wireless Headphones</h2>
-        <p className="text-gray-600 mb-4">SKU: WH1000XM4</p>
+        <h2 className="text-3xl font-bold mb-2">{product?.name}</h2>
+        <p className="text-gray-600 mb-4">SKU: {product?.id}</p>
         <div className="mb-4">
-          <span className="text-2xl font-bold mr-2">$349.99</span>
-          <span className="text-gray-500 line-through">$399.99</span>
+          <span className="text-2xl font-bold mr-2">${product?.finalprice}</span>
+          <span className="text-gray-500 line-through">{product?.price}</span>
         </div>
         <div className="flex items-center mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -91,14 +150,10 @@ const ProductDetails = () => {
         <div className="flex space-x-4 mb-6">
           <button
                         className="bg-indigo-600 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" className="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                        </svg>
+                        
                         Add to Cart
                     </button>
-          <button
+           <button
                         className="bg-gray-200 flex gap-2 items-center  text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" className="size-6">
@@ -119,6 +174,11 @@ const ProductDetails = () => {
           </ul>
         </div>
       </div>
+     </>
+      ))
+     }
+      
+   
     </div>
   </div>
 
