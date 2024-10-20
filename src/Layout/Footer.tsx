@@ -13,8 +13,8 @@ const Footer = () => {
 
       <div className="">
         <p className="text-xsfont-medium text-white">
-        <h1 className="text-white font-extrabold">
-          <span className="text-[#9333EA]">Fashion</span>Hub
+        <h1 className="text-gray-300 font-extrabold">
+          <span className="text-gray-300">Fashion</span>Hub
         </h1>
         </p>
         <p className="mt-2 text-xs font-normal text-white/[80%]">Buildings Alyssa,

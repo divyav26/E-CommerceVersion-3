@@ -188,6 +188,7 @@ export default function Component() {
             <option value="Women">Women</option>
             <option value="Electronics">Electronics</option>
             <option value="Jewellery">Jewellery</option>
+            <option value="Beauty">Beauty</option>
           </select>
         </div>
 

@@ -1,61 +1,43 @@
-import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css'; // Import the CSS for styling
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation,Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
+import './slider.css';
+import banner1 from '../../assets/banner/banner1.webp';
+import banner2 from '../../assets/banner/banner2.webp';
+import banner3 from '../../assets/banner/banner3.avif';
+import banner4 from '../../assets/banner/b3.webp';
+import banner5 from '../../assets/banner/banner1.webp';
 
 const Slider = () => {
-  const handleDragStart = (e: any) => e.preventDefault();
-
-  const items = [
-    <div className="card" onDragStart={handleDragStart} role="presentation">
-      <img
-        src="https://i.ytimg.com/vi/41MVPsMQchI/maxresdefault.jpg"
-        alt="Image 1"
-        className="w-full h-60 object-cover rounded-t-lg"
-      />
-      <div className="p-4">
-        <h2 className="text-lg font-semibold">Card 1</h2>
-        <p className="text-sm text-gray-600">This is the description for Card 1.</p>
-      </div>
-    </div>,
-    <div className="card" onDragStart={handleDragStart} role="presentation">
-      <img
-        src="https://via.placeholder.com/300"
-        alt="Image 2"
-        className="w-full h-60 object-cover rounded-t-lg"
-      />
-      <div className="p-4">
-        <h2 className="text-lg font-semibold">Card 2</h2>
-        <p className="text-sm text-gray-600">This is the description for Card 2.</p>
-      </div>
-    </div>,
-    <div className="card" onDragStart={handleDragStart} role="presentation">
-      <img
-        src="https://via.placeholder.com/400"
-        alt="Image 3"
-        className="w-full h-60 object-cover rounded-t-lg"
-      />
-      <div className="p-4">
-        <h2 className="text-lg font-semibold">Card 3</h2>
-        <p className="text-sm text-gray-600">This is the description for Card 3.</p>
-      </div>
-    </div>,
-  ];
-
   return (
-    <div className="w-full h-full">
-      <AliceCarousel
-        mouseTracking
-        items={items}
-        responsive={{
-          0: { items: 1 },
-          1024: { items: 3 },
-        }}
-        autoPlay
-        autoPlayInterval={2000}
-        infinite
-        disableDotsControls
-        disableButtonsControls
-      />
-    </div>
+    <Swiper
+      navigation={true}
+      modules={[Navigation,Autoplay]}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
+      loop={true}
+      className="mySwiper"
+    >
+      <SwiperSlide>
+        <img src={banner4} alt="banner" className="cursor-pointer" />
+      </SwiperSlide>
+      <SwiperSlide>
+        <img src={banner1} alt="banner" className="cursor-pointer" />
+      </SwiperSlide>
+      <SwiperSlide>
+        <img src={banner2} alt="banner" className="cursor-pointer" />
+      </SwiperSlide>
+      <SwiperSlide>
+        <img src={banner3} alt="banner" className="cursor-pointer" />
+      </SwiperSlide>
+      <SwiperSlide>
+        <img src={banner5} alt="banner" className="cursor-pointer" />
+      </SwiperSlide>
+    </Swiper>
   );
 };
 
