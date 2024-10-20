@@ -150,11 +150,11 @@ const ProductDetails = () => {
                 </div>
 
                 <div className="flex gap-4 items-center">
-                  <button className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 flex items-center gap-2">
+                  <button className="bg-black text-white text-xs px-4 py-2 rounded-md hover:bg-gray-700 flex items-center gap-4">
                     <FiShoppingCart />
                     Add to Cart
                   </button>
-                  <button className="bg-gray-200 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 flex items-center gap-2">
+                  <button className="bg-gray-200 text-xs text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 flex items-center gap-4">
                     <GoHeart />
                     Wishlist
                   </button>
