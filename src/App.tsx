@@ -8,6 +8,9 @@ import ProductDetails from './Pages/products/ProductDetails'
 import Dashboard from './adminDashboard/home/Dashboard'
 import AllOrders from './adminDashboard/orders/AllOrders'
 import ProductHome from './Pages/home/ProductHome'
+import Cart from './Pages/products/Cart'
+import Wishlist from './Pages/products/Wishlist'
+import Protected from './protected/Protected'
 
 
 function App() {
@@ -21,12 +24,13 @@ function App() {
       <Route path='/' element={<ProductHome />}/>
       <Route path="/productCategory/:categoryName" element={<ProductHome />} />
       <Route path="/productsDetails/:id" element={<ProductDetails />} />
+      <Route path="/cart" element={<Protected Component={Cart} />} />
+      <Route path="/wishlist" element={<Protected Component={Wishlist} />} />
       
-          <Route path="/home" element={<Home />}>
+        <Route path="/home" element={<Home />}>
           <Route path="addproducts" element={<AddProducts />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="orders" element={<AllOrders />} />
-         
         </Route>
     </Routes>
 

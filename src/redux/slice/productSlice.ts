@@ -1,5 +1,6 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 interface Product {
     id: string;
     name: string;
@@ -50,11 +51,30 @@ export const productSlice =  createSlice({
           product.category?.toLowerCase() === action.payload.toLowerCase()
         )
       }
-    }
-   
+    },
+
+    //search product
+    SearchProduct: (state,action:PayloadAction<string>)=>{
+      state.searchText = action.payload;
+      if(action.payload ===""){
+        //show all products when search text is empty
+        state.filteredProducts = state.products
+      }
+      else{
+        state.filteredProducts = state.products.filter(product=>
+          product.name?.toLowerCase().includes(action.payload.toLowerCase())
+        )
+      }
+    },
+
+    clearFilter: (state)=>{
+      state.searchText = '';
+      state.selectedCategory = '';
+      state.filteredProducts = state.products;
+    },
   },
 });
 
-export const { setProducts ,filterByCategory} = productSlice.actions;
+export const { setProducts ,filterByCategory,SearchProduct,clearFilter } = productSlice.actions;
 
 export default productSlice.reducer;
