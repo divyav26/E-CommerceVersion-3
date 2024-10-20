@@ -8,6 +8,8 @@ import { showErrorToast, showSuccessToast } from '@/commonComponents/CommanToast
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase/FirebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import LoginImg  from '../../assets/loginImg.jpeg'
+
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -53,19 +55,19 @@ const Register = () => {
   return (
     <Layout>
 
-    <div className="flex items-center min-h-screen p-2 bg-gray-50 ">
+    <div className="flex items-center md:min-h-screen p-2 bg-gray-50 ">
       <div className="flex-1 max-w-3xl mx-auto overflow-hidden bg-white rounded-lg shadow-sm ">
         <div className="flex flex-col overflow-y-auto md:flex-row">
           <div className="h-32 md:h-auto md:w-1/2">
             <img
               aria-hidden="true"
               className="object-cover w-full h-full "
-              src="https://windmill-dashboard-react.vercel.app/static/media/create-account-office-dark.d34c7b50.jpeg"
+              src={LoginImg}
               alt="Office"
             />
           
           </div>
-          <main className="flex items-center justify-center p-4 w-1/2 my-2 ">
+          <main className="full flex items-center justify-center p-4 md:w-1/2 my-2 ">
             <div className="w-full">
               <h1 className="mb-2 text-xl font-semibold text-gray-700">Create an account !!!</h1>
               <Label>
