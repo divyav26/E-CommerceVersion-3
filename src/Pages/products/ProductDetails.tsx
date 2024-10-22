@@ -4,10 +4,14 @@ import { setProducts } from "@/redux/slice/productSlice";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import { GoHeart } from "react-icons/go";
 import { LuIndianRupee } from "react-icons/lu";
+// import { addToWishList } from "@/redux/slice/wishList";
+
+import Cookies from "js-cookie";
+
 
 interface Product {
   id: string;
@@ -25,8 +29,11 @@ interface Product {
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const isLogin = Cookies.get("user_token")
+  console.log("isLogin ===> ",isLogin)
   const products = useSelector((state: any) => state.product.products);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [mainImage, setMainImage] = useState<string | null>(null);
 
@@ -49,6 +56,17 @@ const ProductDetails = () => {
     } catch (error) {
       console.error("Error fetching product: ", error);
     }
+  };
+
+  const handleAddToCart = (product: Product) => {
+    console.log(product);
+    // dispatch(addToCart(product));
+  };
+
+  const handleWishlist = (product: Product) => {
+    console.log(product);
+    navigate("/wishlist");
+    // dispatch(addToWishList(product));
   };
 
   useEffect(() => {
@@ -150,11 +168,11 @@ const ProductDetails = () => {
                 </div>
 
                 <div className="flex gap-4 items-center">
-                  <button className="bg-black text-white text-xs px-4 py-2 rounded-md hover:bg-gray-700 flex items-center gap-4">
+                  <button onClick={()=>handleAddToCart(product)} className="bg-black text-white text-xs px-4 py-2 rounded-md hover:bg-gray-700 flex items-center gap-4">
                     <FiShoppingCart />
                     Add to Cart
                   </button>
-                  <button className="bg-gray-200 text-xs text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 flex items-center gap-4">
+                  <button onClick={()=>handleWishlist(product)} className="bg-gray-200 text-xs text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 flex items-center gap-4">
                     <GoHeart />
                     Wishlist
                   </button>
